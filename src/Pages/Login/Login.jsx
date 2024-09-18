@@ -48,15 +48,26 @@ export default function Login() {
         </div>
         
         <div className="p-8 bg-white">
+          {/* Botón de navegación con flecha */}
+          <button 
+            onClick={() => navigate('/')} 
+            className="flex items-center text-orange-500 mb-4"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+            <span className="ml-2">Volver a Home</span>
+          </button>
+
           <div className="flex gap-1 items-center justify-center">
             <span>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#f87171" className="w-6 h-6">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
               </svg>
             </span>
-            <h1 className="text-center text-slate-900 font-bold text-2xl">Logeo</h1>
+            <h1 className="text-center text-slate-900 font-bold text-2xl">Ingresar</h1>
           </div>
-          <p className="text-slate-500 text-center text-sm mt-2">Si ya tenés una cuenta, iniciá sesión y disfrutá de la mejor comida en la puerta de tu casa</p>
+          <p className="text-slate-500 text-center text-sm mt-2">Creá tus pedidos</p>
 
           <form className="mt-8" onSubmit={handleLogin}>
             <div className="py-2">

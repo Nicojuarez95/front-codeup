@@ -4,6 +4,7 @@ import 'tailwindcss/tailwind.css';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import refresh from "../../Img/refresh-square-svgrepo-com.svg"
+import { useNavigate } from 'react-router-dom';
 
 export default function Dashboard() {
   const [newOrder, setNewOrder] = useState({ table: '', products: [], description: '' });
@@ -14,6 +15,7 @@ export default function Dashboard() {
   const [search, setSearch] = useState('');
   const user = useSelector((state) => state.user.user);
   const { token } = useSelector(state => state.user.token);
+  const navigate = useNavigate();
 
   const fetchTables = () => {
     axios.get('http://localhost:8000/tables/get')
@@ -150,21 +152,28 @@ export default function Dashboard() {
         <div className="bg-pizza w-full h-72 md:h-auto"></div>
         <div className="p-8 bg-white flex flex-col h-full">
           <div className="flex items-center justify-between">
-            <div className="flex justify-between gap-1">
-              <h1 className="text-slate-900 font-bold text-2xl">Crear Pedido</h1>
+          <div className="flex justify-between items-center">
+              {/* Botón Ver Pedidos alineado a la izquierda */}
               <button
-                onClick={() => {
-                  fetchTables();
-                  fetchProducts();
-                }}
-                className="scale-125 ml-3 hover:scale-150"
+                onClick={() => navigate("/orders")}
+                className="bg-orange-400 text-white py-2 px-4 hover:bg-orange-500 cursor-pointer rounded-md mr-6"
               >
-                <img 
-                src={refresh} 
-                alt="Icon" 
-                className="w-6 h-6" 
-                />
+                Ver Pedidos
               </button>
+
+              {/* Contenedor del título y botón de recargar alineados a la derecha */}
+              <div className="flex items-center">
+                <h1 className="text-slate-900 font-bold text-2xl">Crear Pedido</h1>
+                <button
+                  onClick={() => {
+                    fetchTables();
+                    fetchProducts();
+                  }}
+                  className="ml-3 hover:scale-110 transition-transform"
+                >
+                  <img src={refresh} alt="Recargar" className="w-6 h-6" />
+                </button>
+              </div>
             </div>
           </div>
           <form className="mt-8 flex flex-col flex-grow" onSubmit={handleCreateOrder}>
