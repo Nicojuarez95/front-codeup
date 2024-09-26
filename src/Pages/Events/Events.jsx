@@ -84,7 +84,7 @@ export default function Events() {
           filteredEvents.map((event) => (
             <div className="col-md-4" key={event._id}>
               <Card className="mb-4">
-                <Card.Img variant="top" src={event.photo || 'https://via.placeholder.com/150'} />
+                <Card.Img variant="top" src={event.photo || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeR7-eAb0dJhP7YebNJLpuoZMGsEeu73zOcw&s'} />
                 <Card.Body>
                   <Card.Title>{event.name}</Card.Title>
                   <Card.Text>{event.description}</Card.Text>
