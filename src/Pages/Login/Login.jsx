@@ -33,6 +33,7 @@ export default function Login() {
       // Redirigir a la página de eventos
       navigate('/events');
     } catch (error) {
+      alert(error.response.data.message);
       console.error('Error al iniciar sesión:', error);
     }
   };

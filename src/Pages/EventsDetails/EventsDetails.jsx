@@ -53,7 +53,7 @@ export default function EventDetails() {
 
   // Renderizar los detalles del evento
   return (
-    <div className="container my-5">
+    <div className="container my-3">
       <Card>
         <Card.Img variant="top" src={event.photo || 'https://via.placeholder.com/150'} />
         <Card.Body>

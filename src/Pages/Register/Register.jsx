@@ -12,29 +12,34 @@ export default function Register() {
     age: '',
     genre: '',
   });
-
+  const [errorMessage, setErrorMessage] = useState(''); // Estado para manejar mensajes de error
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:8000/users/signup', formData);
-      navigate('/login');
+      const response = await axios.post('http://localhost:8000/users/signup', formData);
+      if (response.status === 201) { // Cambié a 201, que es el código de creado
+        alert('Usuario creado con éxito'); // Mostrar mensaje de éxito (opcional)
+        navigate('/login'); // Redirigir a la página de login
+      }
     } catch (error) {
       console.error('Error al registrar:', error);
+      setErrorMessage(error.response.data.message); // Mostrar mensaje de error
     }
   };
 
   return (
     <Container>
       <h1>Regístrate</h1>
+      {errorMessage && <p className="text-danger">{errorMessage}</p>} {/* Muestra mensaje de error si existe */}
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formName">
           <Form.Label>Nombre</Form.Label>
@@ -58,7 +63,29 @@ export default function Register() {
         </Form.Group>
         <Form.Group controlId="formGenre">
           <Form.Label>Género</Form.Label>
-          <Form.Control type="text" name="genre" onChange={handleChange} />
+          <div>
+            <Form.Check 
+              type="radio" 
+              label="Masculino" 
+              name="genre" 
+              value="masculino" 
+              onChange={handleChange} 
+            />
+            <Form.Check 
+              type="radio" 
+              label="Femenino" 
+              name="genre" 
+              value="femenino" 
+              onChange={handleChange} 
+            />
+            <Form.Check 
+              type="radio" 
+              label="Prefiero no especificar" 
+              name="genre" 
+              value="no_especificar" 
+              onChange={handleChange} 
+            />
+          </div>
         </Form.Group>
         <Button variant="primary" type="submit">Registrarse</Button>
       </Form>

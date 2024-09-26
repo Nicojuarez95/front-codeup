@@ -8,7 +8,7 @@ export default function Layout() {
     <div className="layout-wrapper"> {/* Envolver todo el layout en un div */}
       <Navbar bg="dark" variant="dark" expand="lg">
         <Container>
-          <Navbar.Brand href="/">Eventos</Navbar.Brand>
+          <Navbar.Brand href="/">Home</Navbar.Brand>
           <Nav className="ml-auto">
             <NavLink href="/login">Iniciar Sesión</NavLink>
             <NavLink href="/register">Registrarse</NavLink>

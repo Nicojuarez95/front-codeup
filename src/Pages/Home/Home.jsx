@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link as Anchor } from 'react-router-dom';
 import { Container, Button, Row, Col } from 'react-bootstrap';
-import pizza from '../../Img/pizza.jpg';
+import pizza from '../../Img/images.jfif';
 
 export default function Home() {
   return (
@@ -11,7 +11,7 @@ export default function Home() {
           <Col md={6} className="text-center text-md-left">
             <h1 className="display-4 font-weight-bold">¡Bienvenido a Nuestros Eventos!</h1>
             <p className="lead">Descubre los mejores eventos cerca de ti y únete a la diversión.</p>
-            <Button variant="primary" size="lg" as={Anchor} to="/events" className="mt-3">
+            <Button variant="primary" size="lg" as={Anchor} to="/events" className="mt-5">
               Ver Eventos
             </Button>
           </Col>
