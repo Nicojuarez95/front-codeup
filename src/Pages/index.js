@@ -3,8 +3,9 @@ import Register from "../../src/Pages/Register/Register.jsx"
 import Index from "./Index/Index";
 import IndexLayout from "../Layouts/IndexLayout";
 import { createBrowserRouter } from "react-router-dom";
-import Dashboard from "./Dashboard/Dashboard.jsx";
-import Orders from './Orders/Orders.jsx';           // Vista para cocineros
+import Events from "./Events/Events.jsx";
+import EventsDetails from './EventsDetails/EventsDetails.jsx';           // Vista para cocineros
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 export const router = createBrowserRouter([
@@ -15,8 +16,8 @@ export const router = createBrowserRouter([
             { path: '/', element: <Index />},
             { path: '/login', element: <Login /> },
             { path: '/register', element: <Register /> },
-            { path: '/dashboard', element: <Dashboard /> },
-            { path: '/orders', element: <Orders /> },  
+            { path: '/events', element: <Events /> },
+            { path: '/events/:id', element: <EventsDetails/> },  
         ]
     },
 ])

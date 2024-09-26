@@ -1,0 +1,16 @@
+/* Hacemos que el layout ocupe toda la pantalla y use flexbox */
+.layout-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Hace que ocupe al menos el 100% de la pantalla */
+  }
+  
+  /* El contenido debe expandirse en el espacio disponible */
+  .content {
+    flex: 1; /* Esto asegura que el contenido (Outlet) se expanda para llenar el espacio entre el navbar y el footer */
+  }
+  
+  /* Aseguramos que el footer siempre esté al fondo */
+  footer {
+    margin-top: auto; /* Empuja el footer al final del contenedor */
+  }
