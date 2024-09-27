@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Navbar, Nav, NavLink } from 'react-bootstrap';
 import { Outlet } from 'react-router-dom';
-import './layout.css'; // Importar archivo CSS para estilos personalizados
+import './layout.css';
 
 export default function Layout() {
   return (
