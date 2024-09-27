@@ -4,17 +4,16 @@ import { Card, Button, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 export default function Events() {
-  const [events, setEvents] = useState([]); // Inicializa como un array vacío
-  const [loading, setLoading] = useState(true); // Estado de carga
-  const [error, setError] = useState(null); // Estado de error
-  const [searchTerm, setSearchTerm] = useState(''); // Estado para el filtro por nombre
-  const [filteredEvents, setFilteredEvents] = useState([]); // Estado para eventos filtrados
+  const [events, setEvents] = useState([]); 
+  const [loading, setLoading] = useState(true); 
+  const [error, setError] = useState(null); 
+  const [searchTerm, setSearchTerm] = useState(''); 
+  const [filteredEvents, setFilteredEvents] = useState([]); 
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
         const response = await axios.get('http://localhost:8000/events/getevent');
-        console.log('Response data:', response.data); // Verifica la estructura de los datos
 
         if (response.data && Array.isArray(response.data.events)) {
           setEvents(response.data.events); // Almacena los eventos
@@ -97,7 +96,7 @@ export default function Events() {
             </div>
           ))
         ) : (
-          <p>No events available</p> // Este mensaje solo aparecerá si no hay eventos filtrados
+          <p>No hay eventos disponibles</p> 
         )}
       </div>
     </div>

@@ -4,7 +4,7 @@ import Index from "./Index/Index.jsx";
 import IndexLayout from "../Layouts/IndexLayout.jsx";
 import { createBrowserRouter } from "react-router-dom";
 import Events from "./Events/Events.jsx";
-import EventsDetails from './EventsDetails/EventsDetails.jsx';           // Vista para cocineros
+import EventsDetails from './EventsDetails/EventsDetails.jsx';// Vista para cocineros
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
