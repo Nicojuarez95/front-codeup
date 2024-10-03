@@ -19,7 +19,6 @@ export default function EventDetails() {
           throw new Error('No token found, please log in');
         }
 
-        // Hacer la solicitud GET al backend incluyendo el token en las cabeceras
         const response = await axios.get(`http://localhost:8000/events/event/${id}`, {
           headers: {
             Authorization: `Bearer ${token}` // Enviar el token en el encabezado de autorización
