@@ -24,12 +24,13 @@ export default function Login() {
       // Hacer la solicitud de login al backend
       const response = await axios.post('http://localhost:8000/users/signin', formData);
       
-      // Obtener el token de la respuesta (asegúrate de que el backend lo esté enviando)
-      const token = response.data.token;
-      
-      // Guardar el token en el localStorage
+      // Obtener el token y el userId de la respuesta
+      const { token, user } = response.data;
+  
+      // Guardar el token y el userId en el localStorage
       localStorage.setItem('token', token);
-
+      localStorage.setItem('userId', user._id);  // Aquí guardamos el userId
+  
       // Redirigir a la página de eventos
       navigate('/events');
     } catch (error) {

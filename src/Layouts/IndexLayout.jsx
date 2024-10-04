@@ -12,6 +12,7 @@ export default function Layout() {
           <Nav className="ml-auto">
             <NavLink href="/login">Iniciar Sesión</NavLink>
             <NavLink href="/register">Registrarse</NavLink>
+            <NavLink href="/profile">Perfil</NavLink>
           </Nav>
         </Container>
       </Navbar>
