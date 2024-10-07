@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Button, Container } from 'react-bootstrap';
+import { Form, Button, Container, Row, Col, Card } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux'; // Importar useDispatch para disparar acciones
 import axios from 'axios';
@@ -42,19 +42,36 @@ export default function Login() {
   };
 
   return (
-    <Container>
-      <h1>Iniciar Sesión</h1>
+    <Container className="d-flex justify-content-center align-items-center mt-10">
+    <Card className="shadow p-4" style={{ width: '400px', borderRadius: '10px' }}>
+      <Card.Title className="text-center mb-4">Iniciar Sesión</Card.Title>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formEmail">
           <Form.Label>Email</Form.Label>
-          <Form.Control type="email" name="email" onChange={handleChange} />
+          <Form.Control 
+            type="email" 
+            name="email" 
+            onChange={handleChange} 
+            placeholder="Introduce tu email" 
+            required 
+          />
         </Form.Group>
-        <Form.Group controlId="formPassword">
+        <Form.Group controlId="formPassword" className="mt-3">
           <Form.Label>Contraseña</Form.Label>
-          <Form.Control type="password" name="password" onChange={handleChange} />
+          <Form.Control 
+            type="password" 
+            name="password" 
+            onChange={handleChange} 
+            placeholder="Introduce tu contraseña" 
+            required 
+          />
         </Form.Group>
-        <Button variant="primary" type="submit">Iniciar Sesión</Button>
+        <Button variant="primary" type="submit" className="mt-4 w-100">Iniciar Sesión</Button>
       </Form>
-    </Container>
+      <div className="text-center mt-3">
+        <a href="/register">¿No tienes una cuenta? Regístrate aquí</a>
+      </div>
+    </Card>
+  </Container>
   );
 }

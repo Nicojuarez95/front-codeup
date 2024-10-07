@@ -39,7 +39,7 @@ export default function EventDetails() {
         setComments(eventData.comments || []); // Asumimos que el evento incluye comentarios
         setLoading(false);
         
-        // Calcular la puntuación promedio
+        // Calcular la puntuación promedio solo si hay puntuaciones
         if (eventData.ratings && eventData.ratings.length > 0) {
           const total = eventData.ratings.reduce((sum, rating) => sum + rating, 0);
           setAverageRating(total / eventData.ratings.length);
@@ -90,8 +90,10 @@ export default function EventDetails() {
   
       alert('Rating submitted successfully');
       setRating(''); // Limpiar el campo de rating
-      // Agregar la nueva puntuación a la lista y actualizar el promedio
-      const newAverage = (averageRating * comments.length + parseInt(rating)) / (comments.length + 1);
+  
+      // Asegúrate de que comments.length no es 0 antes de calcular el nuevo promedio
+      const newCommentsLength = comments.length + 1; // Incluyendo el nuevo comentario
+      const newAverage = (averageRating * comments.length + parseInt(rating)) / newCommentsLength;
       setAverageRating(newAverage);
     } catch (error) {
       const errorMessage = error.response?.data?.message || 'Error submitting rating';
@@ -102,27 +104,31 @@ export default function EventDetails() {
   
   const handleCommentSubmit = async () => {
     try {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        throw new Error('No token found, please log in');
-      }
-  
-      const response = await axios.post(`http://localhost:8000/users/event/${id}/comment`, { comment }, {
-        headers: {
-          Authorization: `Bearer ${token}`
+        const token = localStorage.getItem('token');
+        if (!token) {
+            throw new Error('No token found, please log in');
         }
-      });
-  
-      alert('Comment submitted successfully');
-      setComment(''); // Limpiar el campo de comentario
-      // Agregar el nuevo comentario a la lista
-      setComments([...comments, response.data.comment]); // Asumimos que el servidor devuelve el nuevo comentario
+
+        const response = await axios.post(`http://localhost:8000/users/event/${id}/comment`, { comment }, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        alert('Comment submitted successfully');
+        setComment(''); // Limpiar el campo de comentario
+
+        // Asegúrate de que el comentario devuelto tiene la estructura correcta
+        if (response.data.comment) {
+            // Agregar el nuevo comentario a la lista
+            setComments((prevComments) => [...prevComments, response.data.comment]); 
+        }
     } catch (error) {
-      const errorMessage = error.response?.data?.message || 'Error submitting comment';
-      alert(errorMessage); // Mostrar el mensaje de error en alerta
-      console.error('Error submitting comment:', errorMessage);
+        const errorMessage = error.response?.data?.message || 'Error submitting comment';
+        alert(errorMessage); // Mostrar el mensaje de error en alerta
+        console.error('Error submitting comment:', errorMessage);
     }
-  };
+};
 
   if (loading) {
     return <p>Loading event details...</p>;
@@ -139,25 +145,28 @@ export default function EventDetails() {
   return (
     <div className="container my-3">
       <Card>
-        <Card.Img variant="top" src={event.photo || 'https://via.placeholder.com/150'} />
+        <Card.Img 
+          variant="top" 
+          src={event.photo || 'https://via.placeholder.com/150'} 
+          alt={`Imagen del evento ${event.name}`}
+          style={{ width: '100%', height: '400px', margin: '0 auto', display: 'block', objectFit: 'contain' }}
+        />
         <Card.Body>
           <Card.Title>{event.name}</Card.Title>
           <Card.Text><strong>Descripción:</strong> {event.description}</Card.Text>
           <Card.Text><strong>Fecha:</strong> {new Date(event.date).toLocaleDateString()}</Card.Text>
           <Card.Text><strong>Organizador:</strong> {event.organizer?.name || 'Desconocido'}</Card.Text>
           <Card.Text><strong>Edad mínima:</strong> {event.minimumAge} años</Card.Text>
-          
-          {/* Si el usuario no está registrado, mostrar botón para registrarse */}
-          {!isRegistered && (
+
+          {/* Botón de registro si el usuario no está registrado */}
+          {!isRegistered ? (
             <Button variant="primary" onClick={handleRegister}>
               Registrarse en el evento
             </Button>
-          )}
-
-          {/* Si el usuario está registrado, mostrar opciones para comentar y puntuar */}
-          {isRegistered && (
+          ) : (
             <>
-              <Form>
+              {/* Formulario para calificar y comentar si el usuario está registrado */}
+              <Form className="mt-3">
                 <Form.Group controlId="formRating">
                   <Form.Label>Calificar el evento</Form.Label>
                   <Form.Control
@@ -168,12 +177,12 @@ export default function EventDetails() {
                     value={rating}
                     onChange={(e) => setRating(e.target.value)}
                   />
-                  <Button variant="primary" onClick={handleRatingSubmit}>
+                  <Button variant="primary" onClick={handleRatingSubmit} className="mt-2">
                     Enviar puntuación
                   </Button>
                 </Form.Group>
 
-                <Form.Group controlId="formComment">
+                <Form.Group controlId="formComment" className="mt-3">
                   <Form.Label>Dejar un comentario</Form.Label>
                   <Form.Control
                     as="textarea"
@@ -182,7 +191,7 @@ export default function EventDetails() {
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
                   />
-                  <Button variant="primary" onClick={handleCommentSubmit}>
+                  <Button variant="primary" onClick={handleCommentSubmit} className="mt-2">
                     Enviar comentario
                   </Button>
                 </Form.Group>
@@ -190,22 +199,22 @@ export default function EventDetails() {
             </>
           )}
 
-          <Card.Text><strong>Puntuación promedio:</strong> {averageRating.toFixed(1)} / 5</Card.Text>
+          <Card.Text className="mt-3"><strong>Puntuación promedio:</strong> {averageRating.toFixed(1)} / 5</Card.Text>
 
           <Card.Title>Comentarios:</Card.Title>
           {comments.length > 0 ? (
             <ul>
               {comments.map((c) => (
-            <li key={c._id}>
-              <strong>ANINIMO:</strong> {c.comment} <em>{new Date(c.timestamp).toLocaleString()}</em>
-            </li>
-          ))}
+                <li key={c._id}>
+                  <strong>ANÓNIMO:</strong> {c.comment || 'Sin comentario'} <em>{new Date(c.timestamp).toLocaleString()}</em>
+                </li>
+              ))}
             </ul>
           ) : (
             <p>No hay comentarios para este evento.</p>
           )}
 
-          <Button variant="secondary" href="/events">Volver a la lista</Button>
+          <Button variant="secondary" href="/events" className="mt-3">Volver a la lista</Button>
         </Card.Body>
       </Card>
     </div>

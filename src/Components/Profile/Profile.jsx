@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Form, Button, Row, Col, NavLink } from 'react-bootstrap';
+import { Container, Form, Button, Row, Col, NavLink, Card } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { setUser } from '../../store/userSlice.js'; // Importar la acción para actualizar el usuario
@@ -94,87 +94,95 @@ export default function Profile() {
   };
 
   return (
-    <Container>
-      <h1 className="mt-4">Perfil de Usuario</h1>
+    <Container className="mt-4">
+      <h1 className="text-center mb-4">Perfil de Usuario</h1>
       <Row>
         <Col md={8}>
-          {/* Formulario para editar los datos del perfil */}
-          <Form onSubmit={handleProfileSubmit}>
-            <Form.Group controlId="formName">
-              <Form.Label>Nombre</Form.Label>
-              <Form.Control
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleProfileChange}
-              />
-            </Form.Group>
+          <Card className="shadow p-4 mb-4">
+            <Card.Title>Editar Datos del Perfil</Card.Title>
+            <Form onSubmit={handleProfileSubmit}>
+              <Form.Group controlId="formName">
+                <Form.Label>Nombre</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleProfileChange}
+                  required
+                />
+              </Form.Group>
 
-            <Form.Group controlId="formEmail" className="mt-3">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleProfileChange}
-              />
-            </Form.Group>
+              <Form.Group controlId="formEmail" className="mt-3">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleProfileChange}
+                  required
+                />
+              </Form.Group>
 
-            <Form.Group controlId="formAge" className="mt-3">
-              <Form.Label>Edad</Form.Label>
-              <Form.Control
-                type="number"
-                name="age"
-                value={formData.age}
-                onChange={handleProfileChange}
-              />
-            </Form.Group>
+              <Form.Group controlId="formAge" className="mt-3">
+                <Form.Label>Edad</Form.Label>
+                <Form.Control
+                  type="number"
+                  name="age"
+                  value={formData.age}
+                  onChange={handleProfileChange}
+                  required
+                />
+              </Form.Group>
 
-            <Button variant="primary" type="submit" className="mt-4">
-              Guardar cambios
-            </Button>
-          </Form>
+              <Button variant="primary" type="submit" className="mt-4">
+                Guardar cambios
+              </Button>
+            </Form>
+          </Card>
 
-          {/* Formulario para cambiar la contraseña */}
-          <h2 className="mt-5">Cambiar Contraseña</h2>
-          <Form onSubmit={handlePasswordSubmit}>
-            <Form.Group controlId="formOldPassword" className="mt-3">
-              <Form.Label>Contraseña Actual</Form.Label>
-              <Form.Control
-                type="password"
-                name="oldPassword"  // Cambiado a oldPassword
-                value={passwordData.oldPassword}  // Usar el estado correcto
-                onChange={handlePasswordChange}
-              />
-            </Form.Group>
+          <Card className="shadow p-4">
+            <Card.Title>Cambiar Contraseña</Card.Title>
+            <Form onSubmit={handlePasswordSubmit}>
+              <Form.Group controlId="formOldPassword" className="mt-3">
+                <Form.Label>Contraseña Actual</Form.Label>
+                <Form.Control
+                  type="password"
+                  name="oldPassword"
+                  value={passwordData.oldPassword}
+                  onChange={handlePasswordChange}
+                  required
+                />
+              </Form.Group>
 
-            <Form.Group controlId="formNewPassword" className="mt-3">
-              <Form.Label>Nueva Contraseña</Form.Label>
-              <Form.Control
-                type="password"
-                name="newPassword"
-                value={passwordData.newPassword}
-                onChange={handlePasswordChange}
-              />
-            </Form.Group>
+              <Form.Group controlId="formNewPassword" className="mt-3">
+                <Form.Label>Nueva Contraseña</Form.Label>
+                <Form.Control
+                  type="password"
+                  name="newPassword"
+                  value={passwordData.newPassword}
+                  onChange={handlePasswordChange}
+                  required
+                />
+              </Form.Group>
 
-            <Button variant="secondary" type="submit" className="mt-4">
-              Actualizar Contraseña
-            </Button>
-          </Form>
+              <Button variant="secondary" type="submit" className="mt-4">
+                Actualizar Contraseña
+              </Button>
+            </Form>
+          </Card>
         </Col>
 
         <Col md={4} className="text-center">
-          <NavLink href="/organizer/myevents" className="btn btn-secondary mt-4">
+          <NavLink href="/organizer/myevents" className="btn btn-secondary mt-4 w-100">
             Mis eventos
           </NavLink>
-          <NavLink href="/organizer/create" className="btn btn-secondary mt-4">
+          <NavLink href="/organizer/create" className="btn btn-secondary mt-4 w-100">
             Crear evento
           </NavLink>
 
           {/* Mostrar el botón de "Crear Lugar" solo si el usuario es admin */}
           {user?.role === 'admin' && (
-            <NavLink href="/organizer/createplace" className="btn btn-secondary mt-4">
+            <NavLink href="/organizer/createplace" className="btn btn-secondary mt-4 w-100">
               Crear Lugar
             </NavLink>
           )}

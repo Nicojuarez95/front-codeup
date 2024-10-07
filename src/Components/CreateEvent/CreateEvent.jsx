@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Container, Card, Form, Button, Alert } from 'react-bootstrap';
 import axios from 'axios';
 
 const CreateEvent = () => {
@@ -42,90 +43,89 @@ const CreateEvent = () => {
   };
 
   return (
-    <div className="container mt-5">
-      <h2>Crear un nuevo evento</h2>
-      {error && <div className="alert alert-danger">{error}</div>}
-      {success && <div className="alert alert-success">{success}</div>}
-      
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label className="form-label">Nombre del evento</label>
-          <input
-            type="text"
-            placeholder="Nombre del evento"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-            className="form-control"
-          />
-        </div>
+    <Container className="mt-5">
+      <h2 className="text-center mb-4">Crear un Nuevo Evento</h2>
 
-        <div className="mb-3">
-          <label className="form-label">Descripción</label>
-          <input
-            type="text"
-            placeholder="Descripción"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-            className="form-control"
-          />
-        </div>
+      {error && <Alert variant="danger">{error}</Alert>}
+      {success && <Alert variant="success">{success}</Alert>}
 
-        <div className="mb-3">
-          <label className="form-label">Fecha</label>
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            required
-            className="form-control"
-          />
-        </div>
+      <Card className="p-4 shadow">
+        <Form onSubmit={handleSubmit}>
+          <Form.Group className="mb-3" controlId="formEventName">
+            <Form.Label>Nombre del evento</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Nombre del evento"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </Form.Group>
 
-        <div className="mb-3">
-          <label className="form-label">Edad mínima</label>
-          <input
-            type="number"
-            placeholder="Edad mínima"
-            value={minimumAge}
-            onChange={(e) => setMinimumAge(e.target.value)}
-            required
-            className="form-control"
-          />
-        </div>
+          <Form.Group className="mb-3" controlId="formEventDescription">
+            <Form.Label>Descripción</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Descripción"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              required
+            />
+          </Form.Group>
 
-        <div className="mb-3">
-          <label className="form-label">Lugar</label>
-          <select
-            value={placeId}
-            onChange={(e) => setPlaceId(e.target.value)}
-            required
-            className="form-select"
-          >
-            <option value="">Selecciona un lugar</option>
-            {places.length > 0 && places.map((place) => (
-              <option key={place._id} value={place._id}>
-                {place.name} - {place.address}
-              </option>
-            ))}
-          </select>
-        </div>
+          <Form.Group className="mb-3" controlId="formEventDate">
+            <Form.Label>Fecha</Form.Label>
+            <Form.Control
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              required
+            />
+          </Form.Group>
 
-        <div className="mb-3">
-          <label className="form-label">URL de la foto</label>
-          <input
-            type="text"
-            placeholder="URL de la foto"
-            value={photo}
-            onChange={(e) => setPhoto(e.target.value)}
-            className="form-control"
-          />
-        </div>
+          <Form.Group className="mb-3" controlId="formEventMinimumAge">
+            <Form.Label>Edad mínima</Form.Label>
+            <Form.Control
+              type="number"
+              placeholder="Edad mínima"
+              value={minimumAge}
+              onChange={(e) => setMinimumAge(e.target.value)}
+              required
+            />
+          </Form.Group>
 
-        <button type="submit" className="btn btn-primary">Crear evento</button>
-      </form>
-    </div>
+          <Form.Group className="mb-3" controlId="formEventPlace">
+            <Form.Label>Lugar</Form.Label>
+            <Form.Select
+              value={placeId}
+              onChange={(e) => setPlaceId(e.target.value)}
+              required
+            >
+              <option value="">Selecciona un lugar</option>
+              {places.length > 0 && places.map((place) => (
+                <option key={place._id} value={place._id}>
+                  {place.name} - {place.address}
+                </option>
+              ))}
+            </Form.Select>
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formEventPhoto">
+            <Form.Label>URL de la foto</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="URL de la foto"
+              value={photo}
+              onChange={(e) => setPhoto(e.target.value)}
+            />
+          </Form.Group>
+
+          <Button variant="primary" type="submit">
+            Crear evento
+          </Button>
+        </Form>
+      </Card>
+    </Container>
   );
 };
 

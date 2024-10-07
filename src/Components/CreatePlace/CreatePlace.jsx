@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Container, Card, Form, Button, Alert } from 'react-bootstrap';
 import axios from 'axios';
 
 const CreatePlace = () => {
@@ -30,62 +31,63 @@ const CreatePlace = () => {
   };
 
   return (
-    <div className="container mt-5">
-      <h2>Crear un nuevo lugar</h2>
-      {error && <div className="alert alert-danger">{error}</div>}
-      {success && <div className="alert alert-success">{success}</div>}
+    <Container className="mt-5">
+      <h2 className="text-center mb-4">Crear un Nuevo Lugar</h2>
 
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label className="form-label">Nombre del lugar</label>
-          <input 
-            type="text" 
-            placeholder="Nombre del lugar" 
-            value={name} 
-            onChange={(e) => setName(e.target.value)} 
-            required 
-            className="form-control"
-          />
-        </div>
+      {error && <Alert variant="danger">{error}</Alert>}
+      {success && <Alert variant="success">{success}</Alert>}
 
-        <div className="mb-3">
-          <label className="form-label">Dirección</label>
-          <input 
-            type="text" 
-            placeholder="Dirección" 
-            value={address} 
-            onChange={(e) => setAddress(e.target.value)} 
-            required 
-            className="form-control"
-          />
-        </div>
+      <Card className="p-4 shadow">
+        <Form onSubmit={handleSubmit}>
+          <Form.Group className="mb-3" controlId="formPlaceName">
+            <Form.Label>Nombre del lugar</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Nombre del lugar"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </Form.Group>
 
-        <div className="mb-3">
-          <label className="form-label">Capacidad</label>
-          <input 
-            type="number" 
-            placeholder="Capacidad" 
-            value={occupancy} 
-            onChange={(e) => setOccupancy(e.target.value)} 
-            required 
-            className="form-control"
-          />
-        </div>
+          <Form.Group className="mb-3" controlId="formPlaceAddress">
+            <Form.Label>Dirección</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Dirección"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              required
+            />
+          </Form.Group>
 
-        <div className="mb-3">
-          <label className="form-label">URL de la foto</label>
-          <input 
-            type="text" 
-            placeholder="URL de la foto" 
-            value={photo} 
-            onChange={(e) => setPhoto(e.target.value)} 
-            className="form-control"
-          />
-        </div>
+          <Form.Group className="mb-3" controlId="formPlaceOccupancy">
+            <Form.Label>Capacidad</Form.Label>
+            <Form.Control
+              type="number"
+              placeholder="Capacidad"
+              value={occupancy}
+              onChange={(e) => setOccupancy(e.target.value)}
+              required
+            />
+          </Form.Group>
 
-        <button type="submit" className="btn btn-primary">Crear lugar</button>
-      </form>
-    </div>
+          <Form.Group className="mb-3" controlId="formPlacePhoto">
+            <Form.Label>URL de la foto</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="URL de la foto"
+              value={photo}
+              onChange={(e) => setPhoto(e.target.value)}
+            />
+          </Form.Group>
+
+          <Button variant="primary" type="submit">
+            Crear lugar
+          </Button>
+        </Form>
+      </Card>
+    </Container>
   );
 };
 

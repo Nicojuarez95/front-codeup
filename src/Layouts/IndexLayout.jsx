@@ -21,7 +21,7 @@ export default function Layout() {
     <div className="layout-wrapper">
       <Navbar bg="dark" variant="dark" expand="lg">
         <Container>
-          <Navbar.Brand href="/">Home</Navbar.Brand>
+          <Navbar.Brand href="/">Inicio</Navbar.Brand>
           <Nav className="ml-auto">
             {!token ? ( // Si no hay token, mostrar los enlaces de iniciar sesión y registro
               <>
