@@ -81,44 +81,46 @@ export default function EventDetails() {
       if (!token) {
         throw new Error('No token found, please log in');
       }
-
+  
       await axios.post(`http://localhost:8000/users/event/${id}/rate`, { rating }, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-
+  
       alert('Rating submitted successfully');
       setRating(''); // Limpiar el campo de rating
       // Agregar la nueva puntuación a la lista y actualizar el promedio
       const newAverage = (averageRating * comments.length + parseInt(rating)) / (comments.length + 1);
       setAverageRating(newAverage);
     } catch (error) {
-      console.error('Error submitting rating:', error);
-      setError('Error submitting rating');
+      const errorMessage = error.response?.data?.message || 'Error submitting rating';
+      alert(errorMessage); // Mostrar el mensaje de error en alerta
+      console.error('Error submitting rating:', errorMessage);
     }
   };
-
+  
   const handleCommentSubmit = async () => {
     try {
       const token = localStorage.getItem('token');
       if (!token) {
         throw new Error('No token found, please log in');
       }
-
+  
       const response = await axios.post(`http://localhost:8000/users/event/${id}/comment`, { comment }, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-
+  
       alert('Comment submitted successfully');
       setComment(''); // Limpiar el campo de comentario
       // Agregar el nuevo comentario a la lista
       setComments([...comments, response.data.comment]); // Asumimos que el servidor devuelve el nuevo comentario
     } catch (error) {
-      console.error('Error submitting comment:', error);
-      setError('Error submitting comment');
+      const errorMessage = error.response?.data?.message || 'Error submitting comment';
+      alert(errorMessage); // Mostrar el mensaje de error en alerta
+      console.error('Error submitting comment:', errorMessage);
     }
   };
 

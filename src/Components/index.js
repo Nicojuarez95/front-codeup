@@ -7,6 +7,7 @@ import Events from "./Events/Events.jsx";
 import Profile from "./Profile/Profile.jsx";
 import CreateEvent from './CreateEvent/CreateEvent.jsx';
 import MyEvents from './MyEvents/MyEvents.jsx';
+import CreatePlace from "./CreatePlace/CreatePlace.jsx";
 
 import EventsDetails from './EventsDetails/EventsDetails.jsx';// Vista para cocineros
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -24,7 +25,8 @@ export const router = createBrowserRouter([
             { path: '/events/:id', element: <EventsDetails/> },  
             { path: '/organizer/create', element: <CreateEvent /> }, // Ruta para crear eventos
             { path: '/organizer/myevents', element: <MyEvents /> }, 
-            { path: '/profile', element: <Profile /> }, // Ruta para gestionar eventos
+            { path: '/profile', element: <Profile /> },
+            { path: '/organizer/createplace', element: <CreatePlace /> }, // Ruta para gestionar eventos
         ]
     },
 ])

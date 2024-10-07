@@ -19,6 +19,10 @@ const CreatePlace = () => {
 
       setSuccess('Lugar creado exitosamente');
       setError(null);
+      setName('');
+      setAddress('');
+      setOccupancy(0);
+      setPhoto('');
     } catch (error) {
       setError('Error al crear el lugar');
       setSuccess(null);
@@ -26,19 +30,64 @@ const CreatePlace = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container mt-5">
       <h2>Crear un nuevo lugar</h2>
-      {error && <p className="text-danger">{error}</p>}
-      {success && <p className="text-success">{success}</p>}
+      {error && <div className="alert alert-danger">{error}</div>}
+      {success && <div className="alert alert-success">{success}</div>}
+
       <form onSubmit={handleSubmit}>
-        <input type="text" placeholder="Nombre del lugar" value={name} onChange={(e) => setName(e.target.value)} required />
-        <input type="text" placeholder="Dirección" value={address} onChange={(e) => setAddress(e.target.value)} required />
-        <input type="number" placeholder="Capacidad" value={occupancy} onChange={(e) => setOccupancy(e.target.value)} required />
-        <input type="text" placeholder="URL de la foto" value={photo} onChange={(e) => setPhoto(e.target.value)} />
-        <button type="submit">Crear lugar</button>
+        <div className="mb-3">
+          <label className="form-label">Nombre del lugar</label>
+          <input 
+            type="text" 
+            placeholder="Nombre del lugar" 
+            value={name} 
+            onChange={(e) => setName(e.target.value)} 
+            required 
+            className="form-control"
+          />
+        </div>
+
+        <div className="mb-3">
+          <label className="form-label">Dirección</label>
+          <input 
+            type="text" 
+            placeholder="Dirección" 
+            value={address} 
+            onChange={(e) => setAddress(e.target.value)} 
+            required 
+            className="form-control"
+          />
+        </div>
+
+        <div className="mb-3">
+          <label className="form-label">Capacidad</label>
+          <input 
+            type="number" 
+            placeholder="Capacidad" 
+            value={occupancy} 
+            onChange={(e) => setOccupancy(e.target.value)} 
+            required 
+            className="form-control"
+          />
+        </div>
+
+        <div className="mb-3">
+          <label className="form-label">URL de la foto</label>
+          <input 
+            type="text" 
+            placeholder="URL de la foto" 
+            value={photo} 
+            onChange={(e) => setPhoto(e.target.value)} 
+            className="form-control"
+          />
+        </div>
+
+        <button type="submit" className="btn btn-primary">Crear lugar</button>
       </form>
     </div>
   );
 };
 
 export default CreatePlace;
+

@@ -168,6 +168,16 @@ export default function Profile() {
           <NavLink href="/organizer/myevents" className="btn btn-secondary mt-4">
             Mis eventos
           </NavLink>
+          <NavLink href="/organizer/create" className="btn btn-secondary mt-4">
+            Crear evento
+          </NavLink>
+
+          {/* Mostrar el botón de "Crear Lugar" solo si el usuario es admin */}
+          {user?.role === 'admin' && (
+            <NavLink href="/organizer/createplace" className="btn btn-secondary mt-4">
+              Crear Lugar
+            </NavLink>
+          )}
         </Col>
       </Row>
     </Container>
