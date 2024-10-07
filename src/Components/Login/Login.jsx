@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Form, Button, Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux'; // Importar useDispatch para disparar acciones
 import axios from 'axios';
+import { setUser } from '../../store/userSlice.js'; // Importar la acción setUser desde el slice
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -10,6 +12,7 @@ export default function Login() {
   });
 
   const navigate = useNavigate();
+  const dispatch = useDispatch(); // Crear el dispatcher para ejecutar acciones
 
   const handleChange = (e) => {
     setFormData({
@@ -24,13 +27,12 @@ export default function Login() {
       // Hacer la solicitud de login al backend
       const response = await axios.post('http://localhost:8000/users/signin', formData);
       
-      // Obtener el token y el userId de la respuesta
+      // Obtener el token y el user de la respuesta
       const { token, user } = response.data;
   
-      // Guardar el token y el userId en el localStorage
-      localStorage.setItem('token', token);
-      localStorage.setItem('userId', user._id);  // Aquí guardamos el userId
-  
+      // Guardar el token y el user en Redux
+      dispatch(setUser({ user, token }));
+
       // Redirigir a la página de eventos
       navigate('/events');
     } catch (error) {
