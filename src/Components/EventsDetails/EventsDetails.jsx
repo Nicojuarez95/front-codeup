@@ -74,7 +74,7 @@ export default function EventDetails() {
       setError('Error registering for event');
     }
   };
-  
+
   const handleRatingSubmit = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -97,7 +97,7 @@ export default function EventDetails() {
       setAverageRating(newAverage);
     } catch (error) {
       const errorMessage = error.response?.data?.message || 'Error submitting rating';
-      alert(errorMessage); // Mostrar el mensaje de error en alerta
+      alert(errorMessage); 
       console.error('Error submitting rating:', errorMessage);
     }
   };
