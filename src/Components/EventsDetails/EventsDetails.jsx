@@ -74,7 +74,7 @@ export default function EventDetails() {
       setError('Error registering for event');
     }
   };
-
+  
   const handleRatingSubmit = async () => {
     try {
       const token = localStorage.getItem('token');
