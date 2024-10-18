@@ -125,7 +125,7 @@ export default function EventDetails() {
         }
     } catch (error) {
         const errorMessage = error.response?.data?.message || 'Error submitting comment';
-        alert(errorMessage); // Mostrar el mensaje de error en alerta
+        alert(errorMessage);
         console.error('Error submitting comment:', errorMessage);
     }
 };
