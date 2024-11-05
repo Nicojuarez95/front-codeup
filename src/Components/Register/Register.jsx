@@ -32,7 +32,7 @@ export default function Register() {
       }
     } catch (error) {
       console.error('Error al registrar:', error);
-      setErrorMessage(error.response.data.message); // Mostrar mensaje de error
+      setErrorMessage(error.response.data.message);
     }
   };
 
