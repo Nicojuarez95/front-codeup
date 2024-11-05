@@ -27,7 +27,7 @@ export default function Home() {
           <img 
             src={pizza} 
             alt="Eventos" 
-            className="img-fluid rounded shadow" // Agregué shadow para un efecto visual
+            className="img-fluid rounded shadow"
           />
         </Col>
       </Row>
