@@ -28,7 +28,7 @@ export default function Register() {
       const response = await axios.post('http://localhost:8000/users/signup', formData);
       if (response.status === 201) { // Cambié a 201, que es el código de creado
         alert('Usuario creado con éxito');
-        navigate('/login'); // Redirigir a la página de login
+        navigate('/login'); 
       }
     } catch (error) {
       console.error('Error al registrar:', error);
