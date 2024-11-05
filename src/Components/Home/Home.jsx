@@ -18,7 +18,7 @@ export default function Home() {
             size="lg"
             as={RouterLink} // Usamos RouterLink para la navegación
             to="/events"
-            className="mt-4" // Cambié mt-5 a mt-4 para un mejor espaciado
+            className="mt-4"
           >
             Ver Eventos
           </Button>
